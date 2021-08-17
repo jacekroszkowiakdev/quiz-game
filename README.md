@@ -1,2 +1,2 @@
 # quiz-game
-simple quiz app in React 
+A simple quiz app created with React 
