@@ -9,13 +9,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const ContainedButton = (): JSX.Element => {
+interface ButtonProps {
+    buttonText: string;
+}
+
+export const ContainedButton = (props: ButtonProps): JSX.Element => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <Button variant="contained" color="default">
-                Begin
+                {props.buttonText}
             </Button>
         </div>
     );
