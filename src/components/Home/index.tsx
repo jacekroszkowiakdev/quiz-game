@@ -10,7 +10,7 @@ export const Home = () => {
 
     const dispatch = useDispatch();
 
-    const setQuestions = (value) => {
+    const setQuestions = (value: []) => {
         dispatch({
             type: "SET_QUESTIONS",
             questions: value,
