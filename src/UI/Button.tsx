@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,15 +12,23 @@ const useStyles = makeStyles((theme) => ({
 
 interface ButtonProps {
     buttonText: string;
+    path: string;
 }
 
-export const ContainedButton = (props: ButtonProps): JSX.Element => {
-    const classes = useStyles();
+export const ContainedButton = ({
+    buttonText,
+    path,
+}: ButtonProps): JSX.Element => {
+    const { push } = useHistory();
+    const { root } = useStyles();
+    const handleClick: React.MouseEventHandler = () => {
+        push(path);
+    };
 
     return (
-        <div className={classes.root}>
-            <Button variant="contained" color="default">
-                {props.buttonText}
+        <div className={root}>
+            <Button onClick={handleClick} variant="contained" color="default">
+                {buttonText}
             </Button>
         </div>
     );
