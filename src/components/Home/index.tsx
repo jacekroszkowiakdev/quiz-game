@@ -1,23 +1,34 @@
 import { ContainedButton } from "./../../UI/Button";
 import { useEffect, useState } from "react";
 import API from "./../../api/api";
+import { useSelector, useDispatch } from "react-redux";
 
 const query = "api.php?amount=10&difficulty=hard&type=boolean";
 
-let getQuestions = async () => {
-    const response = await API.get(`${query}`);
-    const result = await response.data.results;
-    console.log("data: ", result);
-    return result;
-};
-
 export const Home = () => {
-    const [questions, setQuestions] = useState([]);
+    // const [questions, setQuestions] = useState([]);
+
+    const dispatch = useDispatch();
+
+    const setQuestions = (value) => {
+        dispatch({
+            type: "SET_QUESTIONS",
+            questions: value,
+        });
+    };
+
+    let getQuestions = async () => {
+        const response = await API.get(`${query}`);
+        const result = await response.data.results;
+        console.log("data: ", result);
+        setQuestions(result);
+        return result;
+    };
 
     // useEffect hook
     useEffect(() => {
         getQuestions();
-    }, []);
+    }, [getQuestions]);
 
     return (
         <div
