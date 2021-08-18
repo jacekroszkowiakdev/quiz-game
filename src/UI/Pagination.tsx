@@ -10,10 +10,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const PaginationOutlined = (): JSX.Element => {
-    const classes = useStyles();
+    const { root } = useStyles();
 
     return (
-        <div className={classes.root}>
+        <div className={root}>
             <Pagination count={10} variant="outlined" />
             <Pagination count={10} variant="outlined" color="primary" />
             <Pagination count={10} variant="outlined" color="secondary" />
