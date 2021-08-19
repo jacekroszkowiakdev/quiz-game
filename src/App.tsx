@@ -1,7 +1,6 @@
 import { Home } from "./components/Home";
 import { QuestionCard } from "./components/QuestionCard";
 import { Results } from "./components/Results";
-
 import "./App.css";
 
 export function App() {
@@ -13,5 +12,3 @@ export function App() {
         </div>
     );
 }
-
-export default App;

@@ -1,14 +1,13 @@
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import { Root } from "./Root";
 import { Reducer } from "./store/reducer";
 import { createStore } from "redux";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 
 const store = createStore(Reducer);
-const dispatch = useDispatch;
 
 ReactDOM.render(
     <React.StrictMode>
