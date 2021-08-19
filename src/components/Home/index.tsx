@@ -2,6 +2,7 @@ import { ContainedButton } from "./../../UI/Button";
 import { useEffect, useState } from "react";
 import API from "./../../api/api";
 import { useDispatch } from "react-redux";
+import { Question } from "../../store/reducer";
 
 const query = "api.php?amount=10&difficulty=hard&type=boolean";
 
@@ -14,7 +15,7 @@ export const Home = () => {
             const response = await API.get(`${query}`);
             const result = await response.data.results;
             // this is where we will set questions in the state using an action
-            const setQuestions = (value: []) => {
+            const setQuestions = (value: Question[]) => {
                 dispatch({
                     type: "SET_QUESTIONS",
                     questions: value,

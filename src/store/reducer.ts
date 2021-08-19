@@ -1,21 +1,60 @@
 const initState = {
     // questions
-    questions: [],
-    // answers
+    questions: [] as Question[],
+    answers: [] as Result[],
     index: 0,
     score: 0,
 };
 
+export type Result = {
+    correct: boolean;
+    answer: string;
+};
+
+export type Question = {
+    category: string;
+    correct_answer: string;
+    difficulty: string;
+    incorrect_answers: string[];
+    question: string;
+    type: string;
+};
+
+export type IState = typeof initState;
+
 interface Action {
-    type: {};
-    state: [];
-    questions: [];
+    type: string;
+    questions: Question[];
     index: number;
     score: number;
+    answer: string;
 }
 
-export const Reducer = (state = initState, action: Action) => {
+const checkIfCorrect = (state: IState, answer: string): boolean => {
+    const question = state.questions[state.index];
+    return answer === question.correct_answer;
+};
+
+export const Reducer = (state = initState, action: Action): IState => {
     switch (action.type) {
+        case "SET_ANSWER":
+            if (state.answers[state.index]) {
+                return state;
+            }
+            const answers = [...state.answers];
+
+            const correct = checkIfCorrect(state, action.answer);
+            const result: Result = {
+                correct,
+                answer: action.answer,
+            };
+            answers[state.index] = result;
+            return {
+                ...state,
+                answers,
+                score: state.score + (correct ? 1 : 0),
+            };
+
         case "SET_QUESTIONS":
             return {
                 ...state,
