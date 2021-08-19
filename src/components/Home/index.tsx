@@ -7,7 +7,6 @@ const query = "api.php?amount=10&difficulty=hard&type=boolean";
 
 export const Home = () => {
     // const [questions, setQuestions] = useState([]);
-
     const dispatch = useDispatch();
 
     const setQuestions = (value: []) => {
