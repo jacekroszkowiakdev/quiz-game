@@ -13,24 +13,17 @@ const randomize = (max: number) => {
 
 export const QuestionCard = () => {
     const dispatch = useDispatch();
-    const score = useSelector(selectScore);
+    // const score = useSelector(selectScore);
     const questionIndex = useSelector(selectIndex);
     const questions = useSelector<IState>((state) => state.questions);
     console.log("questions: ", questions);
     const question = useSelector(selectActiveQuestion);
     console.log("question", question);
-    const correctAnswer = question.correct_answer;
-
     const [answerOptions, setAnswerOptions] = useState<string[]>([""]);
+    const correctAnswer = question.correct_answer;
 
     useEffect(() => {
         let answers: string[] = [...question.incorrect_answers];
-        console.log("answerOptions", answers);
-        answers.splice(
-            randomize(question.incorrect_answers.length),
-            0,
-            correctAnswer
-        );
         if (question) {
             answers.splice(
                 randomize(question.incorrect_answers.length),
