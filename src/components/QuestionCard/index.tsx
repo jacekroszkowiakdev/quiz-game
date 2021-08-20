@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { IState } from "../../store/reducer";
 import {
@@ -15,14 +16,11 @@ export const QuestionCard = () => {
     const dispatch = useDispatch();
     const score = useSelector(selectScore);
     const questionIndex = useSelector(selectIndex);
-    const questions = useSelector<IState>((state) => state.questions);
-    console.log("questions", questions.length);
+    const questions: any = useSelector<IState>((state) => state.questions);
     const question = useSelector(selectActiveQuestion);
     const [answerOptions, setAnswerOptions] = useState<string[]>([""]);
     const correctAnswer = question.correct_answer;
-    const quizResult = useSelector<IState>((state) => state.answers);
-    console.log("score: ", score);
-    console.log("result: ", quizResult);
+    const { push } = useHistory();
 
     useEffect(() => {
         let answers: string[] = [...question.incorrect_answers];
@@ -57,11 +55,11 @@ export const QuestionCard = () => {
                 score: score + 1,
             });
         }
-
-        (questionIndex === questions.length - 1) {
-
-        }
     };
+
+    if (questionIndex === questions.length - 1) {
+        push("/results/");
+    }
 
     return (
         <div className="quizContainer">

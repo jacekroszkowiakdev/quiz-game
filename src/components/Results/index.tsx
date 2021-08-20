@@ -1,3 +1,13 @@
+import { useSelector, useDispatch } from "react-redux";
+import { IState } from "../../store/reducer";
+
 export const Results = () => {
-    return <div>Quiz results</div>;
+    const quizResult = useSelector<IState>((state) => state.answers);
+
+    return (
+        <div className="resultsContainer">
+            <div>Quiz results</div>
+            <div>asd</div>
+        </div>
+    );
 };
