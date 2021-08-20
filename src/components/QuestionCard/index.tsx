@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IState } from "../../store/reducer";
 import {
@@ -7,19 +7,60 @@ import {
     selectActiveQuestion,
 } from "../../store/selectors";
 
+const randomize = (max: number) => {
+    return Math.floor(Math.random() * Math.floor(max));
+};
+
 export const QuestionCard = () => {
+    const dispatch = useDispatch();
     const score = useSelector(selectScore);
     const questionIndex = useSelector(selectIndex);
     const questions = useSelector<IState>((state) => state.questions);
-    const dispatch = useDispatch();
+    console.log("questions: ", questions);
     const question = useSelector(selectActiveQuestion);
+    console.log("question", question);
     const correctAnswer = question.correct_answer;
+
+    const [answerOptions, setAnswerOptions] = useState<string[]>([""]);
+
+    useEffect(() => {
+        let answers: string[] = [...question.incorrect_answers];
+        console.log("answerOptions", answers);
+        answers.splice(
+            randomize(question.incorrect_answers.length),
+            0,
+            correctAnswer
+        );
+        if (question) {
+            answers.splice(
+                randomize(question.incorrect_answers.length),
+                0,
+                correctAnswer
+            );
+            setAnswerOptions(answers);
+        }
+        return;
+    }, [question, correctAnswer]);
+
+    const handleAnswer = (evt: { target: HTMLLIElement }) => {
+        if (evt.target.textContent === correctAnswer) {
+            dispatch({
+                type: "SET_ANSWER",
+            });
+        }
+    };
 
     return (
         <div className="quizContainer">
             <div className="category">{question.category}</div>
-            <div>Question</div>
-            <div>Question NUMBER</div>
+            <div>Question {questionIndex + 1}/10</div>
+            <div>{question.question}</div>
+            <div>Answer: </div>
+            <ul>
+                {answerOptions.map((answer, idx) => (
+                    <li key={idx}>{answer}</li>
+                ))}
+            </ul>
         </div>
     );
 };

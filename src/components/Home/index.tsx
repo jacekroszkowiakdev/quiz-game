@@ -1,5 +1,5 @@
 import { ContainedButton } from "./../../UI/Button";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import API from "./../../api/api";
 import { useDispatch } from "react-redux";
 import { Question } from "../../store/reducer";

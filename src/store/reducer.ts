@@ -1,10 +1,11 @@
 const initState = {
-    // questions
     questions: [] as Question[],
     answers: [] as Result[],
     index: 0,
     score: 0,
 };
+
+export type IState = typeof initState;
 
 export type Result = {
     correct: boolean;
@@ -19,8 +20,6 @@ export type Question = {
     question: string;
     type: string;
 };
-
-export type IState = typeof initState;
 
 interface Action {
     type: string;
@@ -73,7 +72,6 @@ export const Reducer = (state = initState, action: Action): IState => {
                 score: action.score,
             };
         default:
-            console.log(state);
             return state;
     }
 };
