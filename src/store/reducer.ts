@@ -47,7 +47,7 @@ export const Reducer = (state = initState, action: Action): IState => {
                 answer: action.answer,
             };
             answers[state.index] = result;
-            console.log("SET_ANSWER: ", answers);
+
             return {
                 ...state,
                 answers,

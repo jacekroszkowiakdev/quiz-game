@@ -10,27 +10,36 @@ export const Results = () => {
     const quizResults = useSelector(selectResults);
     const score = useSelector(selectScore);
 
-    const answersOverview = quizResults.map((overview) => {
-        return `Correct answer: ${overview.correct} Your answer was: ${overview.answer}`;
-    });
-
-    const quizQuestionsMap = questions.map(
-        (question, idx) =>
-            `Q${idx + 1}. ${question.question}\
-            ${answersOverview[idx]}`
+    const quizQuestions = questions.map(
+        (question, idx) => `Q${idx + 1}. ${question.question}`
     );
-    console.log("quizQuestionsMap", quizQuestionsMap);
+    const quizQuestionsObj = { ...quizQuestions };
+
+    const splitQuestionsArr: Array<{}> = Object.values(quizQuestionsObj).map(
+        (question) => ({
+            question,
+        })
+    );
+
+    const splitQuestionsArrayOfObj = splitQuestionsArr.map((question) => ({
+        question,
+    }));
+    console.log("splitQuestionsObj", splitQuestionsArrayOfObj);
+
+    // const answersOverview = quizResults.map((overview) => {
+    //     return `Correct answer: ${overview.correct} Your answer was: ${overview.answer}`;
+    // });
 
     return (
         <div className="resultsContainer">
             <div>Quiz results</div>
             {/* move score back to SET_ANSWER */}
             <div>You scored {score} of 10</div>
-            <ul>
+            {/* <ul>
                 {quizQuestionsMap.map((question, idx) => {
                     return <li key={idx}>{question}</li>;
                 })}
-            </ul>
+            </ul> */}
         </div>
     );
 };
