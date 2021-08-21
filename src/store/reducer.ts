@@ -42,12 +42,12 @@ export const Reducer = (state = initState, action: Action): IState => {
             }
             const answers = [...state.answers];
             const correct = checkIfCorrect(state, action.answer);
+
             const result: Result = {
                 correct,
                 answer: action.answer,
             };
             answers[state.index] = result;
-
             return {
                 ...state,
                 answers,

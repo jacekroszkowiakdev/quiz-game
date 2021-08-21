@@ -7,39 +7,41 @@ import {
 
 export const Results = () => {
     const questions = useSelector(selectQuestions);
-    const quizResults = useSelector(selectResults);
+    const quizAnswers = useSelector(selectResults);
     const score = useSelector(selectScore);
 
+    // QUESTIONS:
     const quizQuestions = questions.map(
         (question, idx) => `Q${idx + 1}. ${question.question}`
     );
-    const quizQuestionsObj = { ...quizQuestions };
 
-    const splitQuestionsArr: Array<{}> = Object.values(quizQuestionsObj).map(
-        (question) => ({
-            question,
-        })
-    );
-
-    const splitQuestionsArrayOfObj = splitQuestionsArr.map((question) => ({
-        question,
-    }));
-    console.log("splitQuestionsObj", splitQuestionsArrayOfObj);
-
-    // const answersOverview = quizResults.map((overview) => {
-    //     return `Correct answer: ${overview.correct} Your answer was: ${overview.answer}`;
-    // });
+    const quizResultsMap = quizAnswers.map((answers, index) => {
+        return { ...answers, question: quizQuestions[index] };
+    });
+    console.log("quizResults.map: ", quizResultsMap);
 
     return (
         <div className="resultsContainer">
             <div>Quiz results</div>
-            {/* move score back to SET_ANSWER */}
             <div>You scored {score} of 10</div>
-            {/* <ul>
-                {quizQuestionsMap.map((question, idx) => {
-                    return <li key={idx}>{question}</li>;
+            <ul>
+                {quizResultsMap.map((results, idx) => {
+                    return (
+                        <li key={idx}>
+                            <h4>{results.question}</h4>
+                            <div className="user-results">
+                                <p>
+                                    Correct answer: {results.correct.toString()}
+                                </p>
+                                <p>
+                                    Your answer was:{" "}
+                                    {results.answer.toLowerCase()}
+                                </p>
+                            </div>
+                        </li>
+                    );
                 })}
-            </ul> */}
+            </ul>
         </div>
     );
 };
