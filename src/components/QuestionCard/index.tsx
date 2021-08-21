@@ -37,29 +37,26 @@ export const QuestionCard = () => {
 
     const handleAnswer = (evt: Event | any) => {
         const target = evt.target as HTMLButtonElement;
-        console.log("target.textContent:", target.textContent);
-
-        dispatch({
-            type: "SET_ANSWER",
-            answer: target.textContent,
-        });
-
-        dispatch({
-            type: "SET_INDEX",
-            index: questionIndex + 1,
-        });
-
-        if (target.textContent === correctAnswer) {
+        setTimeout(() => {
             dispatch({
-                type: "SET_SCORE",
-                score: score + 1,
+                type: "SET_ANSWER",
+                answer: target.textContent,
             });
-        }
+
+            dispatch({
+                type: "SET_INDEX",
+                index: questionIndex + 1,
+            });
+
+            if (target.textContent === correctAnswer) {
+                dispatch({
+                    type: "SET_SCORE",
+                    score: score + 1,
+                });
+            }
+        }, 400);
 
         if (questionIndex === questions.length - 1) {
-            // setTimeout(() => {
-            //     push("/results/");
-            // }, 3000);
             push("/results/");
         }
     };
@@ -77,7 +74,6 @@ export const QuestionCard = () => {
                     </li>
                 ))}
             </ul>
-            {/* {questionIndex + 1 === questions.length ?? <div>See results</div>} */}
         </div>
     );
 };
