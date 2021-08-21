@@ -46,12 +46,11 @@ export const Reducer = (state = initState, action: Action): IState => {
                 correct,
                 answer: action.answer,
             };
-            answers[state.index - 1] = result;
+            answers[state.index] = result;
             console.log("SET_ANSWER: ", answers);
             return {
                 ...state,
                 answers,
-                // questions: action.questions,
             };
 
         case "SET_QUESTIONS":

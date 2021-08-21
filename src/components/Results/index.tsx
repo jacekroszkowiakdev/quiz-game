@@ -17,11 +17,11 @@ export const Results = () => {
     console.log("quizQuestionsMap", quizQuestionsMap);
 
     const answersOverview = quizResults.map((overview) => {
-        return `Correct answer: ${overview.correct} Your answer was: ${overview.answer}`
-    //     return overview.forEach(overview.answer === overview.correct.toString()
-    //         ? `your answer was CORRECT!`
-    //         : `your answer was INCORRECT`;)
-    // });
+        return `Correct answer: ${overview.correct} Your answer was: ${overview.answer}`;
+        //     return overview.forEach(overview.answer === overview.correct.toString()
+        //         ? `your answer was CORRECT!`
+        //         : `your answer was INCORRECT`;)
+    });
     console.log("answersOverview: ", answersOverview);
 
     return (

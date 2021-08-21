@@ -55,11 +55,14 @@ export const QuestionCard = () => {
                 score: score + 1,
             });
         }
-    };
 
-    if (questionIndex === questions.length - 1) {
-        push("/results/");
-    }
+        if (questionIndex === questions.length - 1) {
+            // setTimeout(() => {
+            //     push("/results/");
+            // }, 3000);
+            push("/results/");
+        }
+    };
 
     return (
         <div className="quizContainer">
