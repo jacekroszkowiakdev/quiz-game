@@ -9,21 +9,17 @@ const query = "api.php?amount=10&difficulty=hard&type=boolean";
 export const Home = () => {
     const dispatch = useDispatch();
 
-    // useEffect hook
     useEffect(() => {
         let getQuestions = async () => {
             const response = await API.get(`${query}`);
             const result = await response.data.results;
-            // this is where we will set questions in the state using an action
             const setQuestions = (value: Question[]) => {
                 dispatch({
                     type: "SET_QUESTIONS",
                     questions: value,
                 });
             };
-            console.log("data: ", result);
             setQuestions(result);
-            // return result;
         };
         getQuestions();
     }, [dispatch]);
@@ -36,7 +32,6 @@ export const Home = () => {
             <h1>Welcome to the Trivia Challenge</h1>
             <p>You will be presented with 10 True or False questions.</p>
             <p>Can you score 100%?</p>
-
             <ContainedButton path="/quiz/" buttonText="Begin" />
         </div>
     );

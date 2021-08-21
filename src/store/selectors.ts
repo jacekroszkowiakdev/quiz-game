@@ -7,6 +7,8 @@ export const selectIndex = (state: IState) => state.index;
 
 export const selectScore = (state: IState) => state.score;
 
+export const selectResults = (state: IState) => state.answers;
+
 export const selectActiveQuestion = createSelector(
     selectQuestions,
     selectIndex,

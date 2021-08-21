@@ -27,13 +27,13 @@ interface Action {
     index: number;
     score: number;
     answer: string;
+    answers: Result[];
 }
 
 const checkIfCorrect = (state: IState, answer: string): boolean => {
     const question = state.questions[state.index];
     return answer === question.correct_answer;
 };
-
 export const Reducer = (state = initState, action: Action): IState => {
     switch (action.type) {
         case "SET_ANSWER":
@@ -41,17 +41,17 @@ export const Reducer = (state = initState, action: Action): IState => {
                 return state;
             }
             const answers = [...state.answers];
-
             const correct = checkIfCorrect(state, action.answer);
             const result: Result = {
                 correct,
                 answer: action.answer,
             };
-            answers[state.index] = result;
+            answers[state.index - 1] = result;
+            console.log("SET_ANSWER: ", answers);
             return {
                 ...state,
                 answers,
-                score: state.score + (correct ? 1 : 0),
+                // questions: action.questions,
             };
 
         case "SET_QUESTIONS":

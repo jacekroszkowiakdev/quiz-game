@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { IState } from "../../store/reducer";
 import {
     selectScore,
     selectIndex,
     selectActiveQuestion,
+    selectQuestions,
 } from "../../store/selectors";
 
 const randomize = (max: number) => {
@@ -16,7 +16,7 @@ export const QuestionCard = () => {
     const dispatch = useDispatch();
     const score = useSelector(selectScore);
     const questionIndex = useSelector(selectIndex);
-    const questions: any = useSelector<IState>((state) => state.questions);
+    const questions = useSelector(selectQuestions);
     const question = useSelector(selectActiveQuestion);
     const [answerOptions, setAnswerOptions] = useState<string[]>([""]);
     const correctAnswer = question.correct_answer;
@@ -36,17 +36,17 @@ export const QuestionCard = () => {
     }, [question, correctAnswer]);
 
     const handleAnswer = (evt: Event | any) => {
-        const target = evt.target as HTMLLIElement;
-        console.log("mouse event fired!");
-        console.log("correctAnswer", correctAnswer);
-        dispatch({
-            type: "SET_INDEX",
-            index: questionIndex + 1,
-        });
+        const target = evt.target as HTMLButtonElement;
+        console.log("target.textContent:", target.textContent);
 
         dispatch({
             type: "SET_ANSWER",
-            score: score,
+            answer: target.textContent,
+        });
+
+        dispatch({
+            type: "SET_INDEX",
+            index: questionIndex + 1,
         });
 
         if (target.textContent === correctAnswer) {
@@ -69,12 +69,12 @@ export const QuestionCard = () => {
             <div>Answer: </div>
             <ul>
                 {answerOptions.map((answer, idx) => (
-                    <li key={idx} onClick={handleAnswer}>
-                        <button>{answer}</button>
+                    <li key={idx}>
+                        <button onClick={handleAnswer}>{answer}</button>
                     </li>
                 ))}
             </ul>
-            <div>{score}</div>
+            {/* {questionIndex + 1 === questions.length ?? <div>See results</div>} */}
         </div>
     );
 };
