@@ -4,13 +4,13 @@ import {
     selectResults,
     selectQuestions,
 } from "../../store/selectors";
+import { ContainedButton } from "./../../UI/Button";
 
 export const Results = () => {
     const questions = useSelector(selectQuestions);
     const quizAnswers = useSelector(selectResults);
     const score = useSelector(selectScore);
 
-    // QUESTIONS:
     const quizQuestions = questions.map(
         (question, idx) => `Q${idx + 1}. ${question.question}`
     );
@@ -18,11 +18,10 @@ export const Results = () => {
     const quizResultsMap = quizAnswers.map((answers, index) => {
         return { ...answers, question: quizQuestions[index] };
     });
-    console.log("quizResults.map: ", quizResultsMap);
 
     return (
         <div className="resultsContainer">
-            <div>Quiz results</div>
+            <h1>Quiz results</h1>
             <div>You scored {score} of 10</div>
             <ul>
                 {quizResultsMap.map((results, idx) => {
@@ -34,14 +33,17 @@ export const Results = () => {
                                     Correct answer: {results.correct.toString()}
                                 </p>
                                 <p>
-                                    Your answer was:{" "}
-                                    {results.answer.toLowerCase()}
+                                    Your answer: {results.answer.toLowerCase()}
                                 </p>
                             </div>
                         </li>
                     );
                 })}
             </ul>
+            <ContainedButton
+                path="/"
+                buttonText="Play Again?"
+            ></ContainedButton>
         </div>
     );
 };

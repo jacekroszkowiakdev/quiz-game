@@ -70,6 +70,14 @@ export const Reducer = (state = initState, action: Action): IState => {
                 ...state,
                 score: action.score,
             };
+
+        case "SET_RESET":
+            return {
+                ...state,
+                score: 0,
+                index: 0,
+                answers: [],
+            };
         default:
             return state;
     }

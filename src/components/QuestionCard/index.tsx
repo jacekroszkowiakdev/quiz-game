@@ -22,6 +22,8 @@ export const QuestionCard = () => {
     const correctAnswer = question.correct_answer;
     const { push } = useHistory();
 
+    // parse the string to render all chars correctly
+
     useEffect(() => {
         let answers: string[] = [...question.incorrect_answers];
         if (question) {
