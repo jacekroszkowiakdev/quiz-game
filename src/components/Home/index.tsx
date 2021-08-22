@@ -23,7 +23,6 @@ export const Home = () => {
             setQuestions(result);
         };
         getQuestions();
-        console.log("questions loaded");
     }, [dispatch]);
 
     return (

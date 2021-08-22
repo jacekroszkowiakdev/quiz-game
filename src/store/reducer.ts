@@ -40,6 +40,7 @@ export const Reducer = (state = initState, action: Action): IState => {
             if (state.answers[state.index]) {
                 return state;
             }
+            console.log("STATE: ", state);
             const answers = [...state.answers];
             const correct = checkIfCorrect(state, action.answer);
 
@@ -48,9 +49,11 @@ export const Reducer = (state = initState, action: Action): IState => {
                 answer: action.answer,
             };
             answers[state.index] = result;
+            console.log("SET_ANSWER answers: ", answers, state.score);
             return {
                 ...state,
                 answers,
+                score: correct ? state.score + 1 : state.score + 0,
             };
 
         case "SET_QUESTIONS":

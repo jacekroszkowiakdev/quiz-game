@@ -14,16 +14,12 @@ const randomize = (max: number) => {
 
 export const QuestionCard = () => {
     const dispatch = useDispatch();
-    const [score, setScore] = useState<number>(0);
     const questionIndex = useSelector(selectIndex);
     const questions = useSelector(selectQuestions);
     const question = useSelector(selectActiveQuestion);
     const [answerOptions, setAnswerOptions] = useState<string[]>([""]);
     const correctAnswer = question.correct_answer;
-    console.log("correctAnswer", correctAnswer);
     const { push } = useHistory();
-
-    // parse the string to render all chars correctly
 
     useEffect(() => {
         let answers: string[] = [...question.incorrect_answers];
@@ -38,7 +34,7 @@ export const QuestionCard = () => {
         return;
     }, [question, correctAnswer]);
 
-    const handleAnswer = (evt: Event | any) => {
+    const handleAnswer: React.MouseEventHandler = (evt) => {
         evt.stopPropagation();
         const target = evt.target as HTMLButtonElement;
         setTimeout(() => {
@@ -51,16 +47,8 @@ export const QuestionCard = () => {
                 type: "SET_INDEX",
                 index: questionIndex + 1,
             });
-
-            if (target.textContent === correctAnswer) {
-                setScore(score + 1);
-            }
-        }, 300);
+        }, 0);
         if (questionIndex === questions.length - 1) {
-            dispatch({
-                type: "SET_SCORE",
-                score: score,
-            });
             push("/results/");
         }
     };
@@ -75,17 +63,21 @@ export const QuestionCard = () => {
                 {question.question
                     .replace(/&quot;/g, '"')
                     .replace(/&#039;/g, "'")
-                    .replace(/&aring;/g, "å")}
+                    .replace(/&Aring;/g, "å")}
             </div>
             <div className="answers-container">
                 {answerOptions.map((answer, idx) => (
-                    <button className="answer-button" onClick={handleAnswer}>
+                    <button
+                        key={idx}
+                        className="answer-button"
+                        onClick={handleAnswer}
+                    >
                         {answer}
                     </button>
                 ))}
             </div>
             <h6 className="display-question-number">
-                Question {questionIndex + 1}/10
+                Question {questionIndex + 1}
             </h6>
         </div>
     );

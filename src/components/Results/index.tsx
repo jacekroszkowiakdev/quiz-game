@@ -35,7 +35,7 @@ export const Results = () => {
                                 {results.question
                                     .replace(/&quot;/g, '"')
                                     .replace(/&#039;/g, "'")
-                                    .replace(/&aring;/g, "å")}
+                                    .replace(/&Aring;/g, "å")}
                             </h4>
                             <div className="user-results">
                                 <p>
