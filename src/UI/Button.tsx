@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 interface ButtonProps {
     buttonText: string;
     path: string;
+    className: string;
 }
 
 export const ContainedButton = ({

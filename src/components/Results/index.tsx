@@ -5,6 +5,7 @@ import {
     selectQuestions,
 } from "../../store/selectors";
 import { ContainedButton } from "./../../UI/Button";
+import "./results.css";
 
 export const Results = () => {
     const questions = useSelector(selectQuestions);
@@ -20,14 +21,22 @@ export const Results = () => {
     });
 
     return (
-        <div className="resultsContainer">
-            <h1>Quiz results</h1>
-            <div>You scored {score} of 10</div>
+        <div
+            className="container"
+            style={{ borderRadius: "10px", width: "60vw" }}
+        >
+            <h2>Quiz results</h2>
+            <div className="score">You scored {score} of 10</div>
             <ul>
                 {quizResultsMap.map((results, idx) => {
                     return (
                         <li key={idx}>
-                            <h4>{results.question}</h4>
+                            <h4>
+                                {results.question
+                                    .replace(/&quot;/g, '"')
+                                    .replace(/&#039;/g, "'")
+                                    .replace(/&aring;/g, "å")}
+                            </h4>
                             <div className="user-results">
                                 <p>
                                     Correct answer: {results.correct.toString()}
@@ -43,6 +52,7 @@ export const Results = () => {
             <ContainedButton
                 path="/"
                 buttonText="Play Again?"
+                className="play-again-button"
             ></ContainedButton>
         </div>
     );

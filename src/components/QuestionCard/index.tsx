@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
-    selectScore,
     selectIndex,
     selectActiveQuestion,
     selectQuestions,
 } from "../../store/selectors";
+import "./questionCard.css";
 
 const randomize = (max: number) => {
     return Math.floor(Math.random() * Math.floor(max));
@@ -14,12 +14,13 @@ const randomize = (max: number) => {
 
 export const QuestionCard = () => {
     const dispatch = useDispatch();
-    const score = useSelector(selectScore);
+    const [score, setScore] = useState<number>(0);
     const questionIndex = useSelector(selectIndex);
     const questions = useSelector(selectQuestions);
     const question = useSelector(selectActiveQuestion);
     const [answerOptions, setAnswerOptions] = useState<string[]>([""]);
     const correctAnswer = question.correct_answer;
+    console.log("correctAnswer", correctAnswer);
     const { push } = useHistory();
 
     // parse the string to render all chars correctly
@@ -38,6 +39,7 @@ export const QuestionCard = () => {
     }, [question, correctAnswer]);
 
     const handleAnswer = (evt: Event | any) => {
+        evt.stopPropagation();
         const target = evt.target as HTMLButtonElement;
         setTimeout(() => {
             dispatch({
@@ -51,31 +53,40 @@ export const QuestionCard = () => {
             });
 
             if (target.textContent === correctAnswer) {
-                dispatch({
-                    type: "SET_SCORE",
-                    score: score + 1,
-                });
+                setScore(score + 1);
             }
-        }, 400);
-
+        }, 300);
         if (questionIndex === questions.length - 1) {
+            dispatch({
+                type: "SET_SCORE",
+                score: score,
+            });
             push("/results/");
         }
     };
 
     return (
-        <div className="quizContainer">
-            <div className="category">{question.category}</div>
-            <div>Question {questionIndex + 1}/10</div>
-            <div>{question.question}</div>
-            <div>Answer: </div>
-            <ul>
+        <div
+            className="container"
+            style={{ borderRadius: "10px", width: "60vw" }}
+        >
+            <h3 className="category">{question.category}</h3>
+            <div className="display-question">
+                {question.question
+                    .replace(/&quot;/g, '"')
+                    .replace(/&#039;/g, "'")
+                    .replace(/&aring;/g, "å")}
+            </div>
+            <div className="answers-container">
                 {answerOptions.map((answer, idx) => (
-                    <li key={idx}>
-                        <button onClick={handleAnswer}>{answer}</button>
-                    </li>
+                    <button className="answer-button" onClick={handleAnswer}>
+                        {answer}
+                    </button>
                 ))}
-            </ul>
+            </div>
+            <h6 className="display-question-number">
+                Question {questionIndex + 1}/10
+            </h6>
         </div>
     );
 };
