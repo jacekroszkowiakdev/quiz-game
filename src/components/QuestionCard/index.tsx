@@ -47,7 +47,7 @@ export const QuestionCard = () => {
                 type: "SET_INDEX",
                 index: questionIndex + 1,
             });
-        }, 0);
+        }, 350);
         if (questionIndex === questions.length - 1) {
             push("/results/");
         }
