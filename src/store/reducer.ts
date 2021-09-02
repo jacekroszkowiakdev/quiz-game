@@ -40,20 +40,24 @@ export const Reducer = (state = initState, action: Action): IState => {
             if (state.answers[state.index]) {
                 return state;
             }
-            console.log("STATE: ", state);
+
             const answers = [...state.answers];
             const correct = checkIfCorrect(state, action.answer);
+            console.log("correct: ", correct, state.score); // sets correct to whatever is clicked...?
+            // check what are the api correct questions and then see that is messed up!
+            console.log("STATE: ", state);
+            console.log("STATE answers: ", state.answers);
 
             const result: Result = {
                 correct,
                 answer: action.answer,
             };
             answers[state.index] = result;
-            console.log("SET_ANSWER answers: ", answers, state.score);
+
             return {
                 ...state,
                 answers,
-                score: correct ? state.score + 1 : state.score + 0,
+                score: correct ? state.score + 1 : state.score,
             };
 
         case "SET_QUESTIONS":
