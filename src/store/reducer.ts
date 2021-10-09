@@ -53,7 +53,7 @@ export const Reducer = (state = initState, action: Action): IState => {
             return {
                 ...state,
                 answers,
-                score: correct ? state.score + 1 : state.score + 0,
+                score: correct ? state.score + 1 : state.score,
             };
 
         case "SET_QUESTIONS":

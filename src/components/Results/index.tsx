@@ -20,6 +20,8 @@ export const Results = () => {
         return { ...answers, question: quizQuestions[index] };
     });
 
+    console.log("quizResults", quizResultsMap);
+
     return (
         <div
             className="container"
