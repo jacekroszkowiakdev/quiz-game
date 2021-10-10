@@ -7,6 +7,7 @@ import {
     selectQuestions,
 } from "../../store/selectors";
 import "./questionCard.css";
+import sanitizeHtml from "sanitize-html";
 
 const randomize = (max: number): number => {
     return Math.floor(Math.random() * Math.floor(max));
@@ -26,6 +27,7 @@ export const QuestionCard = () => {
         if (question) {
             answers.splice(randomize(2), 0, correctAnswer);
             setAnswerOptions(answers);
+            console.log(answers);
         }
         return;
     }, [question, correctAnswer]);
@@ -57,10 +59,7 @@ export const QuestionCard = () => {
             <h3 className="category">{question.category}</h3>
             {/* NEXT TO FIX */}
             <div className="display-question">
-                {question.question
-                    .replace(/&quot;/g, '"')
-                    .replace(/&#039;/g, "'")
-                    .replace(/&Aring;/g, "å")}
+                {sanitizeHtml(question.question)}
             </div>
             <div className="answers-container">
                 {answerOptions.map((answer, idx) => (

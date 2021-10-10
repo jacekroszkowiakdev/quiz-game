@@ -6,6 +6,7 @@ import {
 } from "../../store/selectors";
 import { ContainedButton } from "./../../UI/Button";
 import "./results.css";
+import sanitizeHtml from "sanitize-html";
 
 export const Results = () => {
     const questions = useSelector(selectQuestions);
@@ -31,12 +32,7 @@ export const Results = () => {
                 {quizResultsMap.map((results, idx) => {
                     return (
                         <li key={idx}>
-                            <h4>
-                                {results.question
-                                    .replace(/&quot;/g, '"')
-                                    .replace(/&#039;/g, "'")
-                                    .replace(/&Aring;/g, "å")}
-                            </h4>
+                            <h4>{sanitizeHtml(results.question)}</h4>
                             <div className="user-results">
                                 <p>
                                     Correct answer: {results.correct.toString()}

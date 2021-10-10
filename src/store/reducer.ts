@@ -44,8 +44,6 @@ export const Reducer = (state = initState, action: Action): IState => {
             const answers = [...state.answers];
             const correct = checkIfCorrect(state, action.answer);
             console.log("correct: ", correct, state.score); // sets correct to whatever is clicked...?
-            // check what are the api correct questions and then see that is messed up!
-            console.log("STATE: ", state);
             console.log("STATE answers: ", state.answers);
 
             const result: Result = {
