@@ -43,9 +43,6 @@ export const Reducer = (state = initState, action: Action): IState => {
 
             const answers = [...state.answers];
             const correct = checkIfCorrect(state, action.answer);
-            console.log("correct: ", correct, state.score); // sets correct to whatever is clicked...?
-            console.log("STATE answers: ", state.answers);
-
             const result: Result = {
                 correct,
                 answer: action.answer,
@@ -68,12 +65,6 @@ export const Reducer = (state = initState, action: Action): IState => {
             return {
                 ...state,
                 index: action.index,
-            };
-
-        case "SET_SCORE":
-            return {
-                ...state,
-                score: action.score,
             };
 
         case "SET_RESET":

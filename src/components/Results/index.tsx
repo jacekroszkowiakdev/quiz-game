@@ -10,18 +10,29 @@ import sanitizeHtml from "sanitize-html";
 
 export const Results = () => {
     const questions = useSelector(selectQuestions);
+    console.log("Questions :", questions);
     const quizAnswers = useSelector(selectResults);
+    console.log("Answers :", quizAnswers);
     const score = useSelector(selectScore);
 
     const quizQuestions = questions.map(
         (question, idx) => `Q${idx + 1}. ${question.question}`
     );
+    console.log("quizQuestionsMap", quizQuestions);
+
+    // const quizResultsMap = quizAnswers.map((answers, index) => {
+    //     return { ...answers, question: quizQuestions[index] };
+    // });
 
     const quizResultsMap = quizAnswers.map((answers, index) => {
-        return { ...answers, question: quizQuestions[index] };
+        return {
+            ...answers,
+            correct_answer: questions[index].correct_answer,
+            question: quizQuestions[index],
+        };
     });
 
-    console.log("quizResults", quizResultsMap);
+    console.log("quizResultsMap", quizResultsMap);
 
     return (
         <div
@@ -37,7 +48,8 @@ export const Results = () => {
                             <h4>{sanitizeHtml(results.question)}</h4>
                             <div className="user-results">
                                 <p>
-                                    Correct answer: {results.correct.toString()}
+                                    Correct answer:{" "}
+                                    {results.correct_answer.toString()}
                                 </p>
                                 <p>
                                     Your answer: {results.answer.toLowerCase()}

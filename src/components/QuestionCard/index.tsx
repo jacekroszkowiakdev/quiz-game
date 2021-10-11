@@ -27,7 +27,6 @@ export const QuestionCard = () => {
         if (question) {
             answers.splice(randomize(2), 0, correctAnswer);
             setAnswerOptions(answers);
-            console.log(answers);
         }
         return;
     }, [question, correctAnswer]);
@@ -57,7 +56,6 @@ export const QuestionCard = () => {
             style={{ borderRadius: "10px", width: "60vw" }}
         >
             <h3 className="category">{question.category}</h3>
-            {/* NEXT TO FIX */}
             <div className="display-question">
                 {sanitizeHtml(question.question)}
             </div>
